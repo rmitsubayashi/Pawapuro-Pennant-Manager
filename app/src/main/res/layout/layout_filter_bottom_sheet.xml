@@ -3,16 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    android:paddingBottom="24dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     >
 
     <TextView
         android:id="@+id/title_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/filter_title"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,8 +22,6 @@
         android:id="@+id/pitchers_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/pitchers"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_textview" />
@@ -31,7 +31,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
         android:text="@string/fielders"
         app:layout_constraintStart_toEndOf="@+id/pitchers_button"
         app:layout_constraintTop_toBottomOf="@+id/title_textview" />
@@ -40,8 +39,6 @@
         android:id="@+id/starting_pitcher_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/starting_pitcher"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pitchers_button" />
@@ -50,8 +47,6 @@
         android:id="@+id/reliever_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/reliever"
         app:layout_constraintStart_toStartOf="@id/center_guide"
         app:layout_constraintTop_toBottomOf="@+id/pitchers_button" />
@@ -60,8 +55,6 @@
         android:id="@+id/closer_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/closer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/starting_pitcher_radio_button" />
@@ -70,7 +63,6 @@
         android:id="@+id/catcher_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/catcher"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,29 +72,24 @@
         android:id="@+id/first_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/first"
         app:layout_constraintStart_toStartOf="@id/center_guide"
         app:layout_constraintTop_toBottomOf="@+id/closer_radio_button" />
 
     <RadioButton
-        android:id="@+id/shortstop_radio_button"
+        android:id="@+id/second_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/shortstop"
+        android:text="@string/second"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/catcher_radio_button" />
 
     <RadioButton
-        android:id="@+id/second_radio_button"
+        android:id="@+id/shortstop_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/second"
+        android:text="@string/shortstop"
         app:layout_constraintStart_toStartOf="@id/center_guide"
         app:layout_constraintTop_toBottomOf="@+id/first_radio_button" />
 
@@ -110,8 +97,6 @@
         android:id="@+id/third_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/third"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/second_radio_button" />
@@ -120,8 +105,6 @@
         android:id="@+id/outfield_radio_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/outfield"
         app:layout_constraintStart_toStartOf="@id/center_guide"
         app:layout_constraintTop_toBottomOf="@+id/second_radio_button" />
