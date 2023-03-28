@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.rmitsubayashi.pennantmanager.data.repository.PlayerRepository
 import com.rmitsubayashi.pennantmanager.data.model.Player
 import com.rmitsubayashi.pennantmanager.data.model.Position
+import com.rmitsubayashi.pennantmanager.data.repository.CurrentYearRepository
 import com.rmitsubayashi.pennantmanager.ui.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,17 +14,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddEditPlayerViewModel @Inject constructor(
-    private val playerRepository: PlayerRepository
+    private val playerRepository: PlayerRepository,
+    private val currentYearRepository: CurrentYearRepository
 ) : ViewModel() {
     private val _player = MutableLiveData(Player.default())
     private val _name = MutableLiveData("")
     private val _defaultName = MutableLiveData<String>()
     val defaultName: LiveData<String> = _defaultName
-    private val _birthday = MutableLiveData(Player.DEFAULT_BIRTHDAY)
-    val birthday: LiveData<LocalDate> = _birthday
-    val birthdayLabel: LiveData<String> = _birthday.map {
-            date -> DateTimeFormatter.ofPattern("yyyy/MM/dd").format(date)
-    }
+    private val _birthYear = MutableLiveData<Int>()
+    val birthYear: LiveData<Int> = _birthYear
     private val _positions = MutableLiveData<Set<Position>>(emptySet())
     val positions: LiveData<Set<Position>> = _positions
 
@@ -34,6 +33,13 @@ class AddEditPlayerViewModel @Inject constructor(
     val validationErrorEvent: LiveData<Event<Unit>> = _validationErrorEvent
 
     fun fetchPlayer(playerId: Long) {
+        if (playerId == Player.DEFAULT_ID) {
+            val currentYear = currentYearRepository.get()
+            val estimateDraftPlayerYear = currentYear - 22
+            _player.postValue(Player.default().copy(birthYear = estimateDraftPlayerYear))
+            _birthYear.postValue(estimateDraftPlayerYear)
+            return
+        }
         viewModelScope.launch {
             val p = playerRepository.get(playerId)
             // has to come before other updates because
@@ -41,7 +47,7 @@ class AddEditPlayerViewModel @Inject constructor(
             _player.postValue(p)
             _name.postValue(p.name)
             _defaultName.postValue(p.name)
-            _birthday.postValue(p.birthday)
+            _birthYear.postValue(p.birthYear)
             _positions.postValue(p.positions)
         }
     }
@@ -68,11 +74,11 @@ class AddEditPlayerViewModel @Inject constructor(
         )
     }
 
-    fun updateBirthday(newBirthday: LocalDate) {
-        _birthday.postValue(newBirthday)
+    fun updateBirthYear(newBirthYear: Int) {
+        _birthYear.postValue(newBirthYear)
         val currentPlayer = _player.value ?: return
         _player.postValue(
-            currentPlayer.copy(birthday = newBirthday)
+            currentPlayer.copy(birthYear = newBirthYear)
         )
     }
 

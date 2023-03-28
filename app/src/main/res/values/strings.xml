@@ -29,7 +29,9 @@
     <string name="undo_remove">消しました</string>
     <string name="undo_remove_confirm">戻す</string>
     <string name="menu_filter">絞り込む</string>
-    <string name="menu_edit_current_date">日にちの更新</string>
+    <string name="menu_edit_current_year">年度の変更</string>
+    <string name="menu_edit_current_year_confirm">決定</string>
+    <string name="menu_edit_current_year_cancel">キャンセル</string>
     <!--filter-->
     <string name="filter_title">絞り込み</string>
     <string name="pitchers">投手</string>

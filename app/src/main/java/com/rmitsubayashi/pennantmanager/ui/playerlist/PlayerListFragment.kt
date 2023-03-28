@@ -1,22 +1,21 @@
 package com.rmitsubayashi.pennantmanager.ui.playerlist
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.widget.Toolbar
+import android.widget.NumberPicker
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import com.rmitsubayashi.pennantmanager.R
+import com.rmitsubayashi.pennantmanager.data.model.Player
 import com.rmitsubayashi.pennantmanager.databinding.FragmentPlayerListBinding
 import com.rmitsubayashi.pennantmanager.ui.addeditplayer.AddEditPlayerFragment
+import com.rmitsubayashi.pennantmanager.ui.util.YearPickerUtils
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
 
 @AndroidEntryPoint
 class PlayerListFragment : Fragment() {
@@ -24,10 +23,6 @@ class PlayerListFragment : Fragment() {
     private val viewModel: PlayerListViewModel by viewModels()
     private var _binding: FragmentPlayerListBinding? = null
     private val binding get() = _binding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -57,8 +52,8 @@ class PlayerListFragment : Fragment() {
                         viewModel.openFilter()
                         true
                     }
-                    R.id.menu_edit_current_date -> {
-                        viewModel.editCurrentDate()
+                    R.id.menu_edit_current_year -> {
+                        viewModel.editCurrentYear()
                         true
                     }
                     else -> {
@@ -106,20 +101,31 @@ class PlayerListFragment : Fragment() {
 
         viewModel.addEditEvent.observe(viewLifecycleOwner) {
             if (it.hasBeenHandled) return@observe
-            val playerID = it.getContentIfNotHandled()?.id ?: AddEditPlayerFragment.ARG_NEW_PLAYER_ID
+            val playerID = it.getContentIfNotHandled()?.id ?: Player.DEFAULT_ID
             val navAction = PlayerListFragmentDirections.actionPlayerListFragmentToAddEditPlayerFragment(playerID)
             binding.root.findNavController().navigate(navAction)
         }
 
-        viewModel.editCurrentDateEvent.observe(viewLifecycleOwner) {
-            val date = it.getContentIfNotHandled() ?: return@observe
-            DatePickerDialog(
-                requireContext(),
-                {
-                    _, year, month, day ->
-                    viewModel.updateCurrentDate(LocalDate.of(year, month+1, day))
-                },
-                date.year, date.monthValue-1, date.dayOfMonth).show()
+        viewModel.editCurrentYearEvent.observe(viewLifecycleOwner) {
+            val year = it.getContentIfNotHandled() ?: return@observe
+
+            val numberPickerView = requireActivity().layoutInflater.inflate(R.layout.layout_number_picker, null)
+            val numberPicker = numberPickerView.findViewById<NumberPicker>(R.id.number_picker).apply {
+                maxValue = YearPickerUtils.MAX_YEAR
+                minValue = YearPickerUtils.MIN_YEAR
+                value = year
+            }
+            val dialogBuilder = AlertDialog.Builder(binding.root.context)
+                .setView(numberPickerView)
+                .setPositiveButton(R.string.menu_edit_current_year_confirm) { _, _ ->
+                    val number = numberPicker.value
+                    viewModel.updateCurrentYear(number)
+                }
+                .setNegativeButton(R.string.menu_edit_current_year_cancel) { _, _ ->
+
+                }
+
+            dialogBuilder.show()
         }
 
         viewModel.openFilterEvent.observe(viewLifecycleOwner) {
@@ -131,10 +137,6 @@ class PlayerListFragment : Fragment() {
 
             })
             filterBottomSheet.show(requireActivity().supportFragmentManager, filterBottomSheet.tag)
-        }
-
-        viewModel.currentDate.observe(viewLifecycleOwner) {
-            requireActivity().findViewById<Toolbar>(R.id.toolbar).title = it
         }
     }
 

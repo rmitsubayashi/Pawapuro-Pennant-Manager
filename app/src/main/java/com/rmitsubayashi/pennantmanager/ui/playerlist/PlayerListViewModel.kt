@@ -1,7 +1,7 @@
 package com.rmitsubayashi.pennantmanager.ui.playerlist
 
 import androidx.lifecycle.*
-import com.rmitsubayashi.pennantmanager.data.repository.CurrentDateRepository
+import com.rmitsubayashi.pennantmanager.data.repository.CurrentYearRepository
 import com.rmitsubayashi.pennantmanager.data.repository.PlayerRepository
 import com.rmitsubayashi.pennantmanager.data.model.CurrentDate
 import com.rmitsubayashi.pennantmanager.data.model.Player
@@ -16,19 +16,17 @@ import javax.inject.Inject
 @HiltViewModel
 class PlayerListViewModel @Inject constructor(
     private val playerRepository: PlayerRepository,
-    private val currentDateRepository: CurrentDateRepository
+    private val currentYearRepository: CurrentYearRepository
 ) : ViewModel() {
 
-    private val _currentDate = MutableLiveData<CurrentDate>()
-    val currentDate: LiveData<String> = _currentDate.map {
-        date -> DateTimeFormatter.ofPattern("yyyy年MM月dd日").format(date)
-    }
+    private val _currentYear = MutableLiveData<Int>()
 
-    private val _players: LiveData<List<Player>> = _currentDate.switchMap {
-        date -> liveData {
+    private val _players: LiveData<List<Player>> = _currentYear.switchMap {
+        year -> liveData {
             val players = playerRepository.get()
             val changedAge = players.map {
-                val newAge = Period.between(it.birthday, date).years
+                // rough estimate. might be off by 1 year
+                val newAge = year - it.birthYear
                 it.copy(age = newAge)
             }
             val sortedByAge = changedAge.sortedByDescending { it.age }
@@ -53,8 +51,8 @@ class PlayerListViewModel @Inject constructor(
     private val _openFilterEvent = MutableLiveData<Event<FilterState>>()
     val openFilterEvent: LiveData<Event<FilterState>> = _openFilterEvent
 
-    private val _editCurrentDateEvent = MutableLiveData<Event<CurrentDate>>()
-    val editCurrentDateEvent: LiveData<Event<CurrentDate>> = _editCurrentDateEvent
+    private val _editCurrentYearEvent = MutableLiveData<Event<Int>>()
+    val editCurrentYearEvent: LiveData<Event<Int>> = _editCurrentYearEvent
 
     init {
         initFilteredPlayerListSources()
@@ -78,14 +76,14 @@ class PlayerListViewModel @Inject constructor(
 
 
     fun fetchPlayerList() {
-        val currentDate = currentDateRepository.get()
-        _currentDate.postValue(currentDate)
+        val currentYear = currentYearRepository.get()
+        _currentYear.postValue(currentYear)
         // player list will fetch automatically when current date is updated
     }
 
-    fun updateCurrentDate(newDate: LocalDate) {
-        currentDateRepository.update(newDate)
-        _currentDate.postValue(newDate)
+    fun updateCurrentYear(newYear: Int) {
+        currentYearRepository.update(newYear)
+        _currentYear.postValue(newYear)
     }
 
     fun updateFilter(newFilter: FilterState) {
@@ -131,9 +129,9 @@ class PlayerListViewModel @Inject constructor(
         _addEditEvent.postValue(Event(null))
     }
 
-    fun editCurrentDate() {
-        _currentDate.value ?.let {
-            _editCurrentDateEvent.postValue(Event(it))
+    fun editCurrentYear() {
+        _currentYear.value ?.let {
+            _editCurrentYearEvent.postValue(Event(it))
         }
 
     }

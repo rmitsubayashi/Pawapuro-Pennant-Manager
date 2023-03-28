@@ -1,15 +1,15 @@
 package com.rmitsubayashi.pennantmanager.ui.addeditplayer
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.NumberPicker
 import android.widget.RadioButton
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -17,8 +17,8 @@ import androidx.navigation.fragment.navArgs
 import com.rmitsubayashi.pennantmanager.R
 import com.rmitsubayashi.pennantmanager.data.model.Position
 import com.rmitsubayashi.pennantmanager.databinding.FragmentAddEditPlayerBinding
+import com.rmitsubayashi.pennantmanager.ui.util.YearPickerUtils
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
 
 @AndroidEntryPoint
 class AddEditPlayerFragment : Fragment() {
@@ -38,9 +38,7 @@ class AddEditPlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (args.playerId != ARG_NEW_PLAYER_ID) {
-            viewModel.fetchPlayer(args.playerId)
-        }
+        viewModel.fetchPlayer(args.playerId)
         addObservers()
         addListeners()
     }
@@ -53,8 +51,8 @@ class AddEditPlayerFragment : Fragment() {
             )
         }
 
-        viewModel.birthdayLabel.observe(viewLifecycleOwner) {
-            binding.playerBirthdayButton.text = it
+        viewModel.birthYear.observe(viewLifecycleOwner) {
+            binding.playerBirthdayButton.text = it.toString()
         }
 
         viewModel.positions.observe(viewLifecycleOwner) {
@@ -76,14 +74,25 @@ class AddEditPlayerFragment : Fragment() {
 
     private fun addListeners() {
         binding.playerBirthdayButton.setOnClickListener {
-            val currentBirthday = viewModel.birthday.value ?: return@setOnClickListener
-            DatePickerDialog(
-                requireContext(),
-                {
-                        _, year, month, date ->
-                    viewModel.updateBirthday(LocalDate.of(year, month + 1, date))
-                },
-                currentBirthday.year, currentBirthday.monthValue - 1, currentBirthday.dayOfMonth).show()
+            val currentBirthday = viewModel.birthYear.value ?: return@setOnClickListener
+
+            val numberPickerView = requireActivity().layoutInflater.inflate(R.layout.layout_number_picker, null)
+            val numberPicker = numberPickerView.findViewById<NumberPicker>(R.id.number_picker).apply {
+                maxValue = YearPickerUtils.MAX_YEAR
+                minValue = YearPickerUtils.MIN_YEAR
+                value = currentBirthday
+            }
+            val dialogBuilder = AlertDialog.Builder(binding.root.context)
+                .setView(numberPickerView)
+                .setPositiveButton(R.string.menu_edit_current_year_confirm) { _, _ ->
+                    val number = numberPicker.value
+                    viewModel.updateBirthYear(number)
+                }
+                .setNegativeButton(R.string.menu_edit_current_year_cancel) { _, _ ->
+
+                }
+
+            dialogBuilder.show()
         }
 
         for (position in Position.values()) {
@@ -125,11 +134,5 @@ class AddEditPlayerFragment : Fragment() {
             Position.THIRD -> binding.thirdRadioButton
             Position.OUTFIELDER -> binding.outfieldRadioButton
         }
-    }
-
-
-
-    companion object {
-        const val ARG_NEW_PLAYER_ID = -1L
     }
 }

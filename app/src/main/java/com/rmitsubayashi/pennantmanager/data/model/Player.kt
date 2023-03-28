@@ -11,8 +11,8 @@ import java.util.*
 data class Player(
     @ColumnInfo(name = "name")
     val name: String,
-    @ColumnInfo(name = "birthday")
-    val birthday: LocalDate,
+    @ColumnInfo(name = "birthYear")
+    val birthYear: Int,
     @ColumnInfo(name = "positions")
     val positions: Set<Position>,
     @PrimaryKey(autoGenerate = true)
@@ -20,13 +20,13 @@ data class Player(
     @Ignore
     val age: Int = -1 // will be calculated later when we know the current date
 ) {
-    constructor(name: String, birthday: LocalDate, positions: Set<Position>, id: Long) : this(name, birthday, positions, id, -1)
+    constructor(name: String, birthYear: Int, positions: Set<Position>, id: Long) : this(name, birthYear, positions, id, -1)
 
     companion object {
         const val DEFAULT_ID = 0L
 
-        val DEFAULT_BIRTHDAY: LocalDate = LocalDate.of(1996,1,1)
+        const val DEFAULT_BIRTH_YEAR: Int = 1996
 
-        fun default(): Player = Player(name = "", birthday = DEFAULT_BIRTHDAY, positions = emptySet())
+        fun default(): Player = Player(name = "", birthYear = DEFAULT_BIRTH_YEAR, positions = emptySet())
     }
 }
