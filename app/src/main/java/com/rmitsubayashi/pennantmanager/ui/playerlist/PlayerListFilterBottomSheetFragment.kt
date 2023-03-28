@@ -45,23 +45,16 @@ class PlayerListFilterBottomSheetFragment : BottomSheetDialogFragment() {
                 viewModel.togglePositionFilter(position)
             }
         }
-
-        binding.submitButton.setOnClickListener {
-            viewModel.submit()
-        }
     }
 
     private fun setObservers() {
-        viewModel.submittedFilterState.observe(viewLifecycleOwner) {
-            onFilterSelectedListener.onFilterSelected(it)
-            dismiss()
-        }
-
         viewModel.filterState.observe(viewLifecycleOwner) {
             for (position in Position.values()) {
                 val radioButton = mapPositionToRadioButton(position)
                 radioButton.isChecked = it.positions.contains(position)
             }
+
+            onFilterSelectedListener.onFilterSelected(it)
         }
     }
 

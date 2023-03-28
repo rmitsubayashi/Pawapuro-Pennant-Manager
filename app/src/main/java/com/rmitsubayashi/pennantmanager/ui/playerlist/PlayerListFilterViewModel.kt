@@ -13,8 +13,6 @@ class PlayerListFilterViewModel @Inject constructor(): ViewModel() {
     private val _positionFilter = MutableLiveData<Set<Position>>()
     private val _filterState = MediatorLiveData(FilterState(emptySet()))
     val filterState: LiveData<FilterState> = _filterState
-    private val _submittedFilterState = MutableLiveData<FilterState>()
-    val submittedFilterState: LiveData<FilterState> = _submittedFilterState
 
     init {
         initFilterStateSources()
@@ -48,11 +46,5 @@ class PlayerListFilterViewModel @Inject constructor(): ViewModel() {
 
     fun toggleFielders() {
         _positionFilter.postValue(setOf(Position.CATCHER, Position.FIRST, Position.SECOND, Position.SHORTSTOP, Position.THIRD, Position.OUTFIELDER))
-    }
-
-    fun submit() {
-        _filterState.value?.let {
-            _submittedFilterState.postValue(it)
-        }
     }
 }
