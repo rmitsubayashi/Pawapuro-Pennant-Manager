@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/playerListFragment">
+
+    <fragment
+        android:id="@+id/playerListFragment"
+        android:name="com.rmitsubayashi.pennantmanager.ui.playerlist.PlayerListFragment"
+        android:label="fragment_player_list"
+        tools:layout="@layout/fragment_player_list" >
+        <action
+            android:id="@+id/action_playerListFragment_to_addEditPlayerFragment"
+            app:destination="@id/addEditPlayerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditPlayerFragment"
+        android:name="com.rmitsubayashi.pennantmanager.ui.addeditplayer.AddEditPlayerFragment"
+        android:label="AddEditPlayerFragment" >
+        <argument
+            android:name="player_id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_addEditPlayerFragment_to_playerListFragment"
+            app:destination="@id/playerListFragment"
+            app:popUpTo="@id/playerListFragment" />
+    </fragment>
+</navigation>
