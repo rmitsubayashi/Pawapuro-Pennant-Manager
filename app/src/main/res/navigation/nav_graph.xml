@@ -24,6 +24,6 @@
         <action
             android:id="@+id/action_addEditPlayerFragment_to_playerListFragment"
             app:destination="@id/playerListFragment"
-            app:popUpTo="@id/playerListFragment" />
+            app:popUpTo="@id/nav_graph" />
     </fragment>
 </navigation>
