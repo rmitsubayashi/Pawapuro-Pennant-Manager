@@ -33,4 +33,9 @@ class SaveFileRepository @Inject constructor(
             putLong(SharedPrefsKeys.KEY_CURRENT_SAVE_FILE_ID, saveFileId)
         }
     }
+
+    suspend fun updateCurrentYear(newYear: Int) {
+        val currentSaveFile = getCurrentSaveFile() ?: return
+        saveFileDao.update(currentSaveFile.copy(currentYear = newYear))
+    }
 }

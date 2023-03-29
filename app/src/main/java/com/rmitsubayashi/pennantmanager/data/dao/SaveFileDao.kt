@@ -1,9 +1,6 @@
 package com.rmitsubayashi.pennantmanager.data.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.rmitsubayashi.pennantmanager.data.model.SaveFile
 
 @Dao
@@ -19,5 +16,8 @@ interface SaveFileDao {
 
     @Delete
     suspend fun delete(saveFile: SaveFile)
+
+    @Update(entity = SaveFile::class)
+    suspend fun update(vararg saveFile: SaveFile)
 
 }

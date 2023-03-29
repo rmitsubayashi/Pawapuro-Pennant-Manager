@@ -1,7 +1,6 @@
 package com.rmitsubayashi.pennantmanager.ui.playerlist
 
 import androidx.lifecycle.*
-import com.rmitsubayashi.pennantmanager.data.repository.CurrentYearRepository
 import com.rmitsubayashi.pennantmanager.data.repository.PlayerRepository
 import com.rmitsubayashi.pennantmanager.data.model.Player
 import com.rmitsubayashi.pennantmanager.data.model.SaveFile
@@ -14,22 +13,19 @@ import javax.inject.Inject
 @HiltViewModel
 class PlayerListViewModel @Inject constructor(
     private val playerRepository: PlayerRepository,
-    private val currentYearRepository: CurrentYearRepository,
     private val saveFileRepository: SaveFileRepository
 ) : ViewModel() {
 
     private val _saveFile = MutableLiveData<SaveFile>()
     val saveFileTitle: LiveData<String> = _saveFile.map { it.name }
 
-    private val _currentYear = MutableLiveData<Int>()
-
-    private val _players: LiveData<List<Player>> = _currentYear.switchMap {
-        year -> liveData {
+    private val _players: LiveData<List<Player>> = _saveFile.switchMap {
+        file -> liveData {
         val saveFileId = _saveFile.value?.id ?: return@liveData
             val players = playerRepository.getAll(saveFileId)
             val changedAge = players.map {
                 // rough estimate. might be off by 1 year
-                val newAge = year - it.birthYear
+                val newAge = file.currentYear - it.birthYear
                 it.copy(age = newAge)
             }
             val sortedByAge = changedAge.sortedByDescending { it.age }
@@ -87,16 +83,15 @@ class PlayerListViewModel @Inject constructor(
                 return@launch
             }
             _saveFile.postValue(saveFile)
-
-            val currentYear = currentYearRepository.get()
-            _currentYear.postValue(currentYear)
-            // player list will fetch automatically when current date is updated
+            // player list will fetch automatically when save file is updated
         }
     }
 
     fun updateCurrentYear(newYear: Int) {
-        currentYearRepository.update(newYear)
-        _currentYear.postValue(newYear)
+        viewModelScope.launch {
+            saveFileRepository.updateCurrentYear(newYear)
+            fetchPlayerList()
+        }
     }
 
     fun updateFilter(newFilter: FilterState) {
@@ -143,8 +138,8 @@ class PlayerListViewModel @Inject constructor(
     }
 
     fun editCurrentYear() {
-        _currentYear.value ?.let {
-            _editCurrentYearEvent.postValue(Event(it))
+        _saveFile.value ?.let {
+            _editCurrentYearEvent.postValue(Event(it.currentYear))
         }
     }
 

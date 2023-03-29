@@ -9,5 +9,11 @@ data class SaveFile(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     @ColumnInfo(name = "name")
-    val name: String
-)
+    val name: String,
+    @ColumnInfo(name = "currentYear")
+    val currentYear: Int
+) {
+    companion object {
+        fun create(name: String): SaveFile = SaveFile(0, name, 2022)
+    }
+}

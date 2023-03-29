@@ -54,7 +54,7 @@ class SelectSaveFileViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            val saveFileId = saveFileRepository.add(SaveFile(0, name))
+            val saveFileId = saveFileRepository.add(SaveFile.create(name))
             saveFileRepository.setCurrentSaveFile(saveFileId)
             _fileSelectedEvent.postValue(Event(Unit))
         }
