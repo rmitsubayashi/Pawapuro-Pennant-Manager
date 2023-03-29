@@ -3,27 +3,30 @@ package com.rmitsubayashi.pennantmanager.ui.playerlist
 import androidx.lifecycle.*
 import com.rmitsubayashi.pennantmanager.data.repository.CurrentYearRepository
 import com.rmitsubayashi.pennantmanager.data.repository.PlayerRepository
-import com.rmitsubayashi.pennantmanager.data.model.CurrentDate
 import com.rmitsubayashi.pennantmanager.data.model.Player
+import com.rmitsubayashi.pennantmanager.data.model.SaveFile
+import com.rmitsubayashi.pennantmanager.data.repository.SaveFileRepository
 import com.rmitsubayashi.pennantmanager.ui.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.time.Period
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
 class PlayerListViewModel @Inject constructor(
     private val playerRepository: PlayerRepository,
-    private val currentYearRepository: CurrentYearRepository
+    private val currentYearRepository: CurrentYearRepository,
+    private val saveFileRepository: SaveFileRepository
 ) : ViewModel() {
+
+    private val _saveFile = MutableLiveData<SaveFile>()
+    val saveFileTitle: LiveData<String> = _saveFile.map { it.name }
 
     private val _currentYear = MutableLiveData<Int>()
 
     private val _players: LiveData<List<Player>> = _currentYear.switchMap {
         year -> liveData {
-            val players = playerRepository.get()
+        val saveFileId = _saveFile.value?.id ?: return@liveData
+            val players = playerRepository.getAll(saveFileId)
             val changedAge = players.map {
                 // rough estimate. might be off by 1 year
                 val newAge = year - it.birthYear
@@ -54,11 +57,12 @@ class PlayerListViewModel @Inject constructor(
     private val _editCurrentYearEvent = MutableLiveData<Event<Int>>()
     val editCurrentYearEvent: LiveData<Event<Int>> = _editCurrentYearEvent
 
+    private val _redirectToCreateSaveFileEvent = MutableLiveData<Event<Unit>>()
+    val redirectToCreateSaveFileEvent: LiveData<Event<Unit>> = _redirectToCreateSaveFileEvent
+
     init {
         initFilteredPlayerListSources()
     }
-
-
 
     private fun initFilteredPlayerListSources() {
         _filteredPlayers.addSource(_players) {
@@ -74,11 +78,20 @@ class PlayerListViewModel @Inject constructor(
         }
     }
 
-
     fun fetchPlayerList() {
-        val currentYear = currentYearRepository.get()
-        _currentYear.postValue(currentYear)
-        // player list will fetch automatically when current date is updated
+        // check for a save file first. if no save file, redirect the user to create save file
+        viewModelScope.launch {
+            val saveFile = saveFileRepository.getCurrentSaveFile()
+            if (saveFile == null) {
+                _redirectToCreateSaveFileEvent.postValue(Event(Unit))
+                return@launch
+            }
+            _saveFile.postValue(saveFile)
+
+            val currentYear = currentYearRepository.get()
+            _currentYear.postValue(currentYear)
+            // player list will fetch automatically when current date is updated
+        }
     }
 
     fun updateCurrentYear(newYear: Int) {
@@ -133,7 +146,6 @@ class PlayerListViewModel @Inject constructor(
         _currentYear.value ?.let {
             _editCurrentYearEvent.postValue(Event(it))
         }
-
     }
 
     fun openFilter() {

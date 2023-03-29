@@ -17,8 +17,8 @@ class PlayerRepository @Inject constructor(private val playerDao: PlayerDao) {
         playerDao.delete(player)
     }
 
-    suspend fun get(): List<Player> {
-        return playerDao.getAll()
+    suspend fun getAll(saveFileId: Long): List<Player> {
+        return playerDao.getAll(saveFileId)
     }
 
     suspend fun get(playerId: Long): Player {

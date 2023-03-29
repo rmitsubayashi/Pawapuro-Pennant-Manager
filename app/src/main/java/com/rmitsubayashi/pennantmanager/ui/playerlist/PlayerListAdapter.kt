@@ -15,11 +15,11 @@ class PlayerListAdapter(lifecycleOwner: LifecycleOwner, private val viewModel: P
     override fun getItemCount(): Int = list.size
 
     init {
-        viewModel.players.observe(lifecycleOwner, Observer {
+        viewModel.players.observe(lifecycleOwner) {
             list.clear()
             list.addAll(it)
             notifyDataSetChanged()
-        })
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

@@ -5,6 +5,7 @@ import com.rmitsubayashi.pennantmanager.data.repository.PlayerRepository
 import com.rmitsubayashi.pennantmanager.data.model.Player
 import com.rmitsubayashi.pennantmanager.data.model.Position
 import com.rmitsubayashi.pennantmanager.data.repository.CurrentYearRepository
+import com.rmitsubayashi.pennantmanager.data.repository.SaveFileRepository
 import com.rmitsubayashi.pennantmanager.ui.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,9 +16,10 @@ import javax.inject.Inject
 @HiltViewModel
 class AddEditPlayerViewModel @Inject constructor(
     private val playerRepository: PlayerRepository,
-    private val currentYearRepository: CurrentYearRepository
+    private val currentYearRepository: CurrentYearRepository,
+    private val saveFileRepository: SaveFileRepository
 ) : ViewModel() {
-    private val _player = MutableLiveData(Player.default())
+    private val _player = MutableLiveData<Player>()
     private val _name = MutableLiveData("")
     private val _defaultName = MutableLiveData<String>()
     val defaultName: LiveData<String> = _defaultName
@@ -34,10 +36,13 @@ class AddEditPlayerViewModel @Inject constructor(
 
     fun fetchPlayer(playerId: Long) {
         if (playerId == Player.DEFAULT_ID) {
-            val currentYear = currentYearRepository.get()
-            val estimateDraftPlayerYear = currentYear - 22
-            _player.postValue(Player.default().copy(birthYear = estimateDraftPlayerYear))
-            _birthYear.postValue(estimateDraftPlayerYear)
+            viewModelScope.launch {
+                val saveFile = saveFileRepository.getCurrentSaveFile() ?: return@launch // should not ever be null
+                val currentYear = currentYearRepository.get()
+                val estimateDraftPlayerYear = currentYear - 22
+                _player.postValue(Player.default(saveFile.id).copy(birthYear = estimateDraftPlayerYear))
+                _birthYear.postValue(estimateDraftPlayerYear)
+            }
             return
         }
         viewModelScope.launch {

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_playerListFragment_to_addEditPlayerFragment"
             app:destination="@id/addEditPlayerFragment" />
+        <action
+            android:id="@+id/action_playerListFragment_to_selectSaveFileFragment"
+            app:destination="@id/selectSaveFileFragment" />
     </fragment>
     <fragment
         android:id="@+id/addEditPlayerFragment"
@@ -23,6 +26,15 @@
             app:argType="long" />
         <action
             android:id="@+id/action_addEditPlayerFragment_to_playerListFragment"
+            app:destination="@id/playerListFragment"
+            app:popUpTo="@id/nav_graph" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectSaveFileFragment"
+        android:name="com.rmitsubayashi.pennantmanager.ui.selectsavefile.SelectSaveFileFragment"
+        android:label="SelectSaveFileFragment" >
+        <action
+            android:id="@+id/action_selectSaveFileFragment_to_playerListFragment"
             app:destination="@id/playerListFragment"
             app:popUpTo="@id/nav_graph" />
     </fragment>

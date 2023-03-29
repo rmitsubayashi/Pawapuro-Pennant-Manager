@@ -29,4 +29,8 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun providePlayerDao(db: RoomDB) = db.playerDao()
+
+    @Singleton
+    @Provides
+    fun provideSaveFileDao(db: RoomDB) = db.saveFileDao()
 }

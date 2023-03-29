@@ -17,14 +17,4 @@ class RoomTypeConverters {
         val positions = positionString.split(",")
         return positions.map { p -> Position.valueOf(p) }.toSet()
     }
-
-    @TypeConverter
-    fun fromDateToString(date: LocalDate): String {
-        return date.toString()
-    }
-
-    @TypeConverter
-    fun fromStringToDate(dateString: String): LocalDate {
-        return LocalDate.parse(dateString)
-    }
 }

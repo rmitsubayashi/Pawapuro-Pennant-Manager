@@ -5,8 +5,8 @@ import com.rmitsubayashi.pennantmanager.data.model.Player
 
 @Dao
 interface PlayerDao {
-    @Query("SELECT * FROM player")
-    suspend fun getAll(): List<Player>
+    @Query("SELECT * FROM player WHERE saveFileId = :saveFileId")
+    suspend fun getAll(saveFileId: Long): List<Player>
 
     @Query("SELECT * FROM player WHERE id = :playerId")
     suspend fun get(playerId: Long): Player

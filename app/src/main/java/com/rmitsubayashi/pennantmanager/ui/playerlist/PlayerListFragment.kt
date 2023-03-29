@@ -4,16 +4,17 @@ import android.os.Bundle
 import android.view.*
 import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.rmitsubayashi.pennantmanager.R
 import com.rmitsubayashi.pennantmanager.data.model.Player
 import com.rmitsubayashi.pennantmanager.databinding.FragmentPlayerListBinding
-import com.rmitsubayashi.pennantmanager.ui.addeditplayer.AddEditPlayerFragment
 import com.rmitsubayashi.pennantmanager.ui.util.YearPickerUtils
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -54,6 +55,11 @@ class PlayerListFragment : Fragment() {
                     }
                     R.id.menu_edit_current_year -> {
                         viewModel.editCurrentYear()
+                        true
+                    }
+                    R.id.menu_change_save_file -> {
+                        val action = PlayerListFragmentDirections.actionPlayerListFragmentToSelectSaveFileFragment()
+                        findNavController().navigate(action)
                         true
                     }
                     else -> {
@@ -137,6 +143,16 @@ class PlayerListFragment : Fragment() {
 
             })
             filterBottomSheet.show(requireActivity().supportFragmentManager, filterBottomSheet.tag)
+        }
+
+        viewModel.redirectToCreateSaveFileEvent.observe(viewLifecycleOwner) {
+            if (it.hasBeenHandled) return@observe
+            val action = PlayerListFragmentDirections.actionPlayerListFragmentToSelectSaveFileFragment()
+            findNavController().navigate(action)
+        }
+
+        viewModel.saveFileTitle.observe(viewLifecycleOwner) {
+            requireActivity().findViewById<Toolbar>(R.id.toolbar).title = it
         }
     }
 

@@ -32,6 +32,7 @@
     <string name="menu_edit_current_year">年度の変更</string>
     <string name="menu_edit_current_year_confirm">決定</string>
     <string name="menu_edit_current_year_cancel">キャンセル</string>
+    <string name="menu_change_save_file">セーブデータの切り替え</string>
     <!--filter-->
     <string name="filter_title">絞り込み</string>
     <string name="pitchers">投手</string>
@@ -43,4 +44,14 @@
     <string name="player_birthday">生年月日</string>
     <string name="save">保存</string>
     <string name="validation_error">入力エラー</string>
+    <!--select save file-->
+    <string name="select_save_file">選択する</string>
+    <string name="add_save_file">追加する</string>
+    <string name="add_save_file_confirm">保存</string>
+    <string name="add_save_file_cancel">キャンセル</string>
+    <string name="delete_save_file">削除する</string>
+    <string name="delete_save_file_confirmation">本当に削除しますか？</string>
+    <string name="delete_save_file_yes">はい</string>
+    <string name="delete_save_file_no">いいえ</string>
+    <string name="save_file_deleted">「%1$s」が削除されました</string>
 </resources>
