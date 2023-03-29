@@ -1,7 +1,6 @@
 package com.rmitsubayashi.pennantmanager.ui.selectsavefile
 
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,16 +58,20 @@ class SelectSaveFileFragment : Fragment() {
             if (it.hasBeenHandled) return@observe
             Toast.makeText(binding.root.context, R.string.validation_error, Toast.LENGTH_SHORT).show()
         }
+
+        viewModel.saveFileSelectedOnScreen.observe(viewLifecycleOwner) {
+            binding.selectSaveFileButton.isEnabled = true
+            binding.deleteSaveFileButton.isEnabled = true
+        }
     }
 
     private fun addListeners() {
         binding.addSaveFileButton.setOnClickListener {
-            val editText = EditText(binding.root.context).apply {
-                inputType = InputType.TYPE_CLASS_TEXT
-            }
-
+            val editTextView = requireActivity().layoutInflater.inflate(R.layout.layout_edit_text, null)
+            val editText = editTextView.findViewById<EditText>(R.id.edittext)
             AlertDialog.Builder(binding.root.context)
-                .setView(editText)
+                .setView(editTextView)
+                .setTitle(R.string.add_save_file)
                 .setPositiveButton(R.string.add_save_file_confirm) { _, _ ->
                     viewModel.createSaveFile(editText.text.toString())
                 }

@@ -39,12 +39,14 @@
     <string name="fielders">野手</string>
     <string name="submit">決定</string>
     <!--add edit player-->
+    <string name="add_edit">選手の追加・編集</string>
     <string name="player_name">名前</string>
     <string name="player_positions">守備位置</string>
     <string name="player_birthday">生年月日</string>
     <string name="save">保存</string>
     <string name="validation_error">入力エラー</string>
     <!--select save file-->
+    <string name="select_save_file_title">セーブデータを選択する</string>
     <string name="select_save_file">選択する</string>
     <string name="add_save_file">追加する</string>
     <string name="add_save_file_confirm">保存</string>

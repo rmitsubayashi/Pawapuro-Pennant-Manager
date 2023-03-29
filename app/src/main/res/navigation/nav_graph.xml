@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_player_list" >
         <action
             android:id="@+id/action_playerListFragment_to_addEditPlayerFragment"
-            app:destination="@id/addEditPlayerFragment" />
+            app:destination="@id/addEditPlayerFragment"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_playerListFragment_to_selectSaveFileFragment"
             app:destination="@id/selectSaveFileFragment" />
@@ -20,7 +21,7 @@
     <fragment
         android:id="@+id/addEditPlayerFragment"
         android:name="com.rmitsubayashi.pennantmanager.ui.addeditplayer.AddEditPlayerFragment"
-        android:label="AddEditPlayerFragment" >
+        android:label="@string/add_edit">
         <argument
             android:name="player_id"
             app:argType="long" />
@@ -32,7 +33,7 @@
     <fragment
         android:id="@+id/selectSaveFileFragment"
         android:name="com.rmitsubayashi.pennantmanager.ui.selectsavefile.SelectSaveFileFragment"
-        android:label="SelectSaveFileFragment" >
+        android:label="@string/select_save_file_title">
         <action
             android:id="@+id/action_selectSaveFileFragment_to_playerListFragment"
             app:destination="@id/playerListFragment"

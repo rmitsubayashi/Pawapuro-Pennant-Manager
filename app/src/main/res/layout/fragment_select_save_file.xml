@@ -16,32 +16,43 @@
 
     <Button
         android:id="@+id/add_save_file_button"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/add_save_file"
+        android:textColor="@color/purple_500"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/save_file_list"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/select_save_file_button"
         />
 
     <Button
         android:id="@+id/select_save_file_button"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/select_save_file"
+        android:textColor="@color/primary_text_color"
+        android:enabled="false"
         app:layout_constraintStart_toEndOf="@id/add_save_file_button"
+        app:layout_constraintEnd_toStartOf="@id/delete_save_file_button"
         app:layout_constraintTop_toBottomOf="@id/save_file_list"
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
     <Button
         android:id="@+id/delete_save_file_button"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/delete_save_file"
+        android:textColor="@color/primary_text_color"
+        android:enabled="false"
         app:layout_constraintStart_toEndOf="@id/select_save_file_button"
         app:layout_constraintTop_toBottomOf="@id/save_file_list"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
