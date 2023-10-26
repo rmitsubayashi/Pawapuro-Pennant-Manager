@@ -137,6 +137,70 @@
         app:layout_constraintStart_toStartOf="@id/center_guide"
         app:layout_constraintTop_toBottomOf="@+id/third_radio_button" />
 
+    <TextView
+        android:id="@+id/player_growth_type_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/player_growth_type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/outfield_radio_button" />
+
+    <RadioButton
+        android:id="@+id/unknown_radio_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/player_growth_type_unknown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player_growth_type_textview" />
+
+    <RadioButton
+        android:id="@+id/chou_soujuku_radio_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/chou_soujuku"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/unknown_radio_button" />
+
+    <RadioButton
+        android:id="@+id/soujuku_radio_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/soujuku"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chou_soujuku_radio_button" />
+
+    <RadioButton
+        android:id="@+id/futsuu_radio_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/futsuu"
+        app:layout_constraintStart_toStartOf="@id/center_guide"
+        app:layout_constraintTop_toBottomOf="@+id/player_growth_type_textview" />
+
+    <RadioButton
+        android:id="@+id/bansei_radio_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/bansei"
+        app:layout_constraintStart_toStartOf="@id/center_guide"
+        app:layout_constraintTop_toBottomOf="@+id/futsuu_radio_button" />
+
+    <RadioButton
+        android:id="@+id/chou_bansei_radio_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/chou_bansei"
+        app:layout_constraintStart_toStartOf="@id/center_guide"
+        app:layout_constraintTop_toBottomOf="@+id/bansei_radio_button" />
+
     <Button
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
@@ -145,7 +209,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/save"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/outfield_radio_button" />
+        app:layout_constraintTop_toBottomOf="@+id/soujuku_radio_button" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/center_guide"

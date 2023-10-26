@@ -1,6 +1,7 @@
 package com.rmitsubayashi.pennantmanager.ui.playerlist
 
 import androidx.lifecycle.*
+import com.rmitsubayashi.pennantmanager.data.model.GrowthType
 import com.rmitsubayashi.pennantmanager.data.repository.PlayerRepository
 import com.rmitsubayashi.pennantmanager.data.model.Player
 import com.rmitsubayashi.pennantmanager.data.model.SaveFile
@@ -28,7 +29,20 @@ class PlayerListViewModel @Inject constructor(
                 val newAge = file.currentYear - it.birthYear
                 it.copy(age = newAge)
             }
-            val sortedByAge = changedAge.sortedByDescending { it.age }
+
+            val changedRelativeAge = changedAge.map {
+                val diff = when (it.growthType) {
+                    GrowthType.UNKNOWN -> 0
+                    GrowthType.CHOU_SOUJUKU -> 6
+                    GrowthType.SOUJUKU -> 4
+                    GrowthType.FUTSUU -> 0
+                    GrowthType.BANSEI -> -3
+                    GrowthType.CHOU_BANSEI -> -7
+                }
+                val relativeAge = it.age + diff
+                it.copy(relativeAge = relativeAge)
+            }
+            val sortedByAge = changedRelativeAge.sortedByDescending { it.relativeAge }
             emit(sortedByAge)
         }
     }

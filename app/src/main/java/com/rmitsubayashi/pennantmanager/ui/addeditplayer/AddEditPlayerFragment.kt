@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rmitsubayashi.pennantmanager.R
+import com.rmitsubayashi.pennantmanager.data.model.GrowthType
 import com.rmitsubayashi.pennantmanager.data.model.Position
 import com.rmitsubayashi.pennantmanager.databinding.FragmentAddEditPlayerBinding
 import com.rmitsubayashi.pennantmanager.ui.util.YearPickerUtils
@@ -62,6 +63,13 @@ class AddEditPlayerFragment : Fragment() {
             }
         }
 
+        viewModel.growthType.observe(viewLifecycleOwner) {
+            for (growthType in GrowthType.values()) {
+                val radioButton = mapGrowthTypeToRadioButton(growthType)
+                radioButton.isChecked = it == growthType
+            }
+        }
+
         viewModel.defaultName.observe(viewLifecycleOwner) {
             binding.playerNameEdittext.setText(it)
         }
@@ -102,6 +110,13 @@ class AddEditPlayerFragment : Fragment() {
             }
         }
 
+        for (growthType in GrowthType.values()) {
+            val radioButton = mapGrowthTypeToRadioButton(growthType)
+            radioButton.setOnClickListener {
+                viewModel.toggleGrowthType(growthType)
+            }
+        }
+
         binding.playerNameEdittext.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -133,6 +148,17 @@ class AddEditPlayerFragment : Fragment() {
             Position.SECOND -> binding.secondRadioButton
             Position.THIRD -> binding.thirdRadioButton
             Position.OUTFIELDER -> binding.outfieldRadioButton
+        }
+    }
+
+    private fun mapGrowthTypeToRadioButton(growthType: GrowthType): RadioButton {
+        return when (growthType) {
+            GrowthType.UNKNOWN -> binding.unknownRadioButton
+            GrowthType.CHOU_SOUJUKU -> binding.chouSoujukuRadioButton
+            GrowthType.SOUJUKU -> binding.soujukuRadioButton
+            GrowthType.FUTSUU -> binding.futsuuRadioButton
+            GrowthType.BANSEI -> binding.banseiRadioButton
+            GrowthType.CHOU_BANSEI -> binding.chouBanseiRadioButton
         }
     }
 }

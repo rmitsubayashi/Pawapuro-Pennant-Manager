@@ -1,6 +1,7 @@
 package com.rmitsubayashi.pennantmanager.ui.addeditplayer
 
 import androidx.lifecycle.*
+import com.rmitsubayashi.pennantmanager.data.model.GrowthType
 import com.rmitsubayashi.pennantmanager.data.repository.PlayerRepository
 import com.rmitsubayashi.pennantmanager.data.model.Player
 import com.rmitsubayashi.pennantmanager.data.model.Position
@@ -23,6 +24,8 @@ class AddEditPlayerViewModel @Inject constructor(
     val birthYear: LiveData<Int> = _birthYear
     private val _positions = MutableLiveData<Set<Position>>(emptySet())
     val positions: LiveData<Set<Position>> = _positions
+    private val _growthType = MutableLiveData<GrowthType>(GrowthType.UNKNOWN)
+    val growthType: LiveData<GrowthType> = _growthType
 
     private val _savedEvent = MutableLiveData<Event<Unit>>()
     val savedEvent: LiveData<Event<Unit>> = _savedEvent
@@ -49,6 +52,7 @@ class AddEditPlayerViewModel @Inject constructor(
             _defaultName.postValue(p.name)
             _birthYear.postValue(p.birthYear)
             _positions.postValue(p.positions)
+            _growthType.postValue(p.growthType)
         }
     }
 
@@ -63,6 +67,14 @@ class AddEditPlayerViewModel @Inject constructor(
         val currentPlayer = _player.value ?: return
         _player.postValue(
             currentPlayer.copy(positions = currentPositions)
+        )
+    }
+
+    fun toggleGrowthType(growthType: GrowthType) {
+        _growthType.postValue(growthType)
+        val currentPlayer = _player.value ?: return
+        _player.postValue(
+            currentPlayer.copy(growthType = growthType)
         )
     }
 
