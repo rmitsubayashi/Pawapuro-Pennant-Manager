@@ -60,7 +60,7 @@ class NoteListFragment : Fragment() {
                     }
                 }
             }
-        })
+        }, viewLifecycleOwner)
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {

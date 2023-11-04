@@ -59,7 +59,7 @@
     <fragment
         android:id="@+id/addEditNoteFragment"
         android:name="com.rmitsubayashi.pennantmanager.ui.addeditnote.AddEditNoteFragment"
-        android:label="AddEditNoteFragment" >
+        android:label="@string/add_edit_note_label">
         <argument
             android:name="noteId"
             app:argType="long" />
