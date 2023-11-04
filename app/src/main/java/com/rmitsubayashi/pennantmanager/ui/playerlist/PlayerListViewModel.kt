@@ -134,10 +134,9 @@ class PlayerListViewModel @Inject constructor(
         }
     }
 
-    fun undoRemove() {
-        val lastRemoved = _lastRemovedPlayer.value ?: return
+    fun undoRemove(lastRemoved: Player) {
         viewModelScope.launch {
-            playerRepository.add(lastRemoved.peekContent())
+            playerRepository.add(lastRemoved)
             fetchPlayerList()
         }
     }

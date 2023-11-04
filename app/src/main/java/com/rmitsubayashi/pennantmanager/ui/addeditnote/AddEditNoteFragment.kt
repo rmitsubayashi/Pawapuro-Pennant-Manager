@@ -81,6 +81,7 @@ class AddEditNoteFragment : Fragment() {
 
         viewModel.savedEvent.observe(viewLifecycleOwner) {
             if (it.hasBeenHandled) return@observe
+            it.getContentIfNotHandled()
             Toast.makeText(requireContext(), R.string.saved_note, Toast.LENGTH_SHORT).show()
         }
     }

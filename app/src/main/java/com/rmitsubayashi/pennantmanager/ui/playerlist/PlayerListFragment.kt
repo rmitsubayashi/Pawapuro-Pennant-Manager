@@ -103,9 +103,10 @@ class PlayerListFragment : Fragment() {
     private fun addObservers() {
         viewModel.lastRemovedPlayer.observe(viewLifecycleOwner) {
             if (it.hasBeenHandled) return@observe
+            val player = it.getContentIfNotHandled() ?: return@observe
             Snackbar.make(binding.root, R.string.undo_remove, Snackbar.LENGTH_LONG)
                 .setAction(R.string.undo_remove_confirm) {
-                    viewModel.undoRemove()
+                    viewModel.undoRemove(player)
                 }
                 .show()
         }
@@ -152,6 +153,7 @@ class PlayerListFragment : Fragment() {
 
         viewModel.redirectToCreateSaveFileEvent.observe(viewLifecycleOwner) {
             if (it.hasBeenHandled) return@observe
+            it.getContentIfNotHandled()
             val action = PlayerListFragmentDirections.actionPlayerListFragmentToSelectSaveFileFragment()
             findNavController().navigate(action)
         }

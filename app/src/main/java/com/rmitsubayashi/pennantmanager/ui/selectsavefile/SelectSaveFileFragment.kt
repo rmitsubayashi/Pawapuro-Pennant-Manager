@@ -45,6 +45,7 @@ class SelectSaveFileFragment : Fragment() {
     private fun addObservers() {
         viewModel.fileSelectedEvent.observe(viewLifecycleOwner) {
             if (it.hasBeenHandled) return@observe
+            it.getContentIfNotHandled()
             val navAction = SelectSaveFileFragmentDirections.actionSelectSaveFileFragmentToPlayerListFragment()
             binding.root.findNavController().navigate(navAction)
         }
@@ -56,6 +57,7 @@ class SelectSaveFileFragment : Fragment() {
 
         viewModel.addFileErrorEvent.observe(viewLifecycleOwner) {
             if (it.hasBeenHandled) return@observe
+            it.getContentIfNotHandled()
             Toast.makeText(binding.root.context, R.string.validation_error, Toast.LENGTH_SHORT).show()
         }
 

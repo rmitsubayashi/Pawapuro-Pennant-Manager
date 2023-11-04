@@ -85,9 +85,10 @@ class NoteListFragment : Fragment() {
     private fun addObservers() {
         viewModel.lastRemovedNote.observe(viewLifecycleOwner) {
             if (it.hasBeenHandled) return@observe
+            val note = it.getContentIfNotHandled() ?: return@observe
             Snackbar.make(binding.root, R.string.undo_remove, Snackbar.LENGTH_LONG)
                 .setAction(R.string.undo_remove_confirm) {
-                    viewModel.undoRemove()
+                    viewModel.undoRemove(note)
                 }
                 .show()
         }

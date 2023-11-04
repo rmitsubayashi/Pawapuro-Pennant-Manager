@@ -47,6 +47,7 @@ class AddEditPlayerFragment : Fragment() {
     private fun addObservers() {
         viewModel.savedEvent.observe(viewLifecycleOwner) {
             if (it.hasBeenHandled) return@observe
+            it.getContentIfNotHandled()
             binding.root.findNavController().navigate(
                 AddEditPlayerFragmentDirections.actionAddEditPlayerFragmentToPlayerListFragment()
             )
@@ -76,6 +77,7 @@ class AddEditPlayerFragment : Fragment() {
 
         viewModel.validationErrorEvent.observe(viewLifecycleOwner) {
             if (it.hasBeenHandled) return@observe
+            it.getContentIfNotHandled()
             Toast.makeText(requireContext(), R.string.validation_error, Toast.LENGTH_SHORT).show()
         }
     }

@@ -43,14 +43,15 @@ class NoteListViewModel @Inject constructor(
         val targetNote = _longClickListItemEvent.value ?: return
         viewModelScope.launch {
             noteRepository.remove(targetNote)
+            _lastRemovedNote.postValue(Event(targetNote))
+            fetchNoteList()
 
         }
     }
 
-    fun undoRemove() {
-        val lastRemoved = _lastRemovedNote.value ?: return
+    fun undoRemove(lastRemoved: Note) {
         viewModelScope.launch {
-            noteRepository.add(lastRemoved.peekContent())
+            noteRepository.add(lastRemoved)
             fetchNoteList()
         }
     }
