@@ -80,7 +80,6 @@ class NoteListFragment : Fragment() {
 
     private fun bindListAdapter() {
         binding.noteList.adapter = NoteListAdapter(viewLifecycleOwner, viewModel, getContextMenuListener())
-        binding.noteList.addItemDecoration(DividerItemDecoration(binding.root.context, LinearLayoutManager.VERTICAL))
     }
 
     private fun addObservers() {

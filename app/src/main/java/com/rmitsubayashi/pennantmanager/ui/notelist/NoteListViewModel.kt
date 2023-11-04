@@ -29,9 +29,9 @@ class NoteListViewModel @Inject constructor(
     fun fetchNoteList() {
         viewModelScope.launch {
             val notes = noteRepository.getAll()
-            val notesByLastEdited = notes.sortedBy { it.lastEditedTimeStamp }
+            val notesByLastEdited = notes.sortedByDescending { it.lastEditedTimeStamp }
 
-            _notes.postValue(notes)
+            _notes.postValue(notesByLastEdited)
         }
     }
 

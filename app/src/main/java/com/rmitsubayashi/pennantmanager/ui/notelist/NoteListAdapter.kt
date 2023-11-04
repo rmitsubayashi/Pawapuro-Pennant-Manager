@@ -32,7 +32,7 @@ class NoteListAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val note = list[position]
-        (holder as NoteListViewHolder).setNote(note, contextMenuListener)
+        (holder as NoteListViewHolder).setNote(note, contextMenuListener, position)
     }
 
 }

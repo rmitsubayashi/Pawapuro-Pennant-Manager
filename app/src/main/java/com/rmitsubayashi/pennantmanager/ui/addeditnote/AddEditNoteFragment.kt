@@ -47,7 +47,9 @@ class AddEditNoteFragment : Fragment() {
                     binding.saveButton.visibility = View.VISIBLE
                     binding.editButton.visibility = View.INVISIBLE
 
+                    binding.titleEdittext.isEnabled = true
                     binding.titleEdittext.isFocusableInTouchMode = true
+                    binding.contentEdittext.isEnabled = true
                     binding.contentEdittext.isFocusableInTouchMode = true
                 }
                 AddEditNoteViewModel.VIEW_MODE -> {
@@ -56,8 +58,10 @@ class AddEditNoteFragment : Fragment() {
 
                     // bug where the cursor stays on screen when scrolling?
                     binding.titleEdittext.clearFocus()
+                    binding.titleEdittext.isEnabled = false
                     binding.titleEdittext.isFocusableInTouchMode = false
                     binding.contentEdittext.clearFocus()
+                    binding.contentEdittext.isEnabled = false
                     binding.contentEdittext.isFocusableInTouchMode = false
                 }
             }

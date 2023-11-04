@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.rmitsubayashi.pennantmanager.data.model.Note
 import com.rmitsubayashi.pennantmanager.data.repository.NoteRepository
 import com.rmitsubayashi.pennantmanager.ui.util.Event
+import com.rmitsubayashi.pennantmanager.ui.util.TimeUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -77,11 +78,12 @@ class AddEditNoteViewModel @Inject constructor(
 
     fun save() {
         val currentNote = _note.value ?: return
+        val currentNoteWithNewTimestamp = currentNote.copy(lastEditedTimeStamp = TimeUtil.currentTimestamp())
         viewModelScope.launch {
             if (currentNote.id == Note.DEFAULT_ID) {
-                noteRepository.add(currentNote)
+                noteRepository.add(currentNoteWithNewTimestamp)
             } else {
-                noteRepository.update(currentNote)
+                noteRepository.update(currentNoteWithNewTimestamp)
             }
             _edited.postValue(false)
             _savedEvent.postValue(Event(Unit))
