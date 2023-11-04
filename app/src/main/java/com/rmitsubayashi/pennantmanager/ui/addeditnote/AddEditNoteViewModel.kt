@@ -26,11 +26,14 @@ class AddEditNoteViewModel @Inject constructor(
     val edited: LiveData<Boolean> = _edited
     private val _savedEvent = MutableLiveData<Event<Unit>>()
     val savedEvent: LiveData<Event<Unit>> = _savedEvent
+    private val _interactionMode = MutableLiveData(VIEW_MODE)
+    val interactionMode: LiveData<Int> = _interactionMode
 
 
     fun fetchNote(noteId: Long) {
         if (noteId == Note.DEFAULT_ID) {
             _note.postValue(Note.default())
+            _interactionMode.postValue(EDIT_MODE)
             return
         }
 
@@ -68,6 +71,10 @@ class AddEditNoteViewModel @Inject constructor(
         }
     }
 
+    fun startEdit() {
+        _interactionMode.postValue(EDIT_MODE)
+    }
+
     fun save() {
         val currentNote = _note.value ?: return
         viewModelScope.launch {
@@ -78,6 +85,12 @@ class AddEditNoteViewModel @Inject constructor(
             }
             _edited.postValue(false)
             _savedEvent.postValue(Event(Unit))
+            _interactionMode.postValue(VIEW_MODE)
         }
+    }
+
+    companion object {
+        const val VIEW_MODE = 0
+        const val EDIT_MODE = 1
     }
 }

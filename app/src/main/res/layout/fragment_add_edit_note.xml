@@ -28,6 +28,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/edit_note"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <View
         android:id="@+id/border"
         android:layout_width="0dp"
@@ -40,7 +50,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/save_button" />
 
-    <com.rmitsubayashi.pennantmanager.ui.util.ScrollResponsiveEdittext
+    <EditText
         android:id="@+id/content_edittext"
         android:layout_width="0dp"
         android:layout_height="0dp"

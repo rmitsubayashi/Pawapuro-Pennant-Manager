@@ -1,9 +1,11 @@
 package com.rmitsubayashi.pennantmanager.ui.addeditnote
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
@@ -38,6 +40,28 @@ class AddEditNoteFragment : Fragment() {
     }
 
     private fun addObservers() {
+
+        viewModel.interactionMode.observe(viewLifecycleOwner) {
+            when (it) {
+                AddEditNoteViewModel.EDIT_MODE -> {
+                    binding.saveButton.visibility = View.VISIBLE
+                    binding.editButton.visibility = View.INVISIBLE
+
+                    binding.titleEdittext.isFocusableInTouchMode = true
+                    binding.contentEdittext.isFocusableInTouchMode = true
+                }
+                AddEditNoteViewModel.VIEW_MODE -> {
+                    binding.saveButton.visibility = View.INVISIBLE
+                    binding.editButton.visibility = View.VISIBLE
+
+                    // bug where the cursor stays on screen when scrolling?
+                    binding.titleEdittext.clearFocus()
+                    binding.titleEdittext.isFocusableInTouchMode = false
+                    binding.contentEdittext.clearFocus()
+                    binding.contentEdittext.isFocusableInTouchMode = false
+                }
+            }
+        }
 
         viewModel.defaultTitle.observe(viewLifecycleOwner) {
             binding.titleEdittext.setText(it)
@@ -86,32 +110,17 @@ class AddEditNoteFragment : Fragment() {
             }
         })
 
-        binding.contentEdittext.setOnScrollChangeListener { _, _, _, _, _ ->
-            binding.contentEdittext.clearFocus()
-        }
-
-        binding.contentEdittext.setOnTouchListener(object : View.OnTouchListener {
-            private var startClickTime = 0L
-            override fun onTouch(view: View, event: MotionEvent): Boolean {
-                if (event.action == MotionEvent.ACTION_DOWN) {
-                    startClickTime = System.currentTimeMillis()
-                } else if (event.action == MotionEvent.ACTION_UP) {
-                    val isScroll = System.currentTimeMillis() - startClickTime > ViewConfiguration.getTapTimeout()
-                    if (isScroll) {
-                        binding.contentEdittext.startScrollerTask()
-                    }
-                }
-
-                return false
-            }
-        })
-
-        binding.contentEdittext.setOnScrollStoppedListener {
-            binding.contentEdittext.clearFocus()
-        }
-
         binding.saveButton.setOnClickListener {
+            val inputMethodManager = requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            requireActivity().currentFocus?.let {
+                inputMethodManager.hideSoftInputFromWindow(it.windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
+            }
+
             viewModel.save()
+        }
+
+        binding.editButton.setOnClickListener {
+            viewModel.startEdit()
         }
 
         val backPressedCallback = object : OnBackPressedCallback(true) {

@@ -78,6 +78,7 @@
     <string name="add_edit_note_title_hint">タイトル</string>
     <string name="add_edit_note_content_hint">内容</string>
     <string name="save_note">保存</string>
+    <string name="edit_note">編集</string>
     <string name="saved_note">保存しました</string>
     <string name="ask_to_save">変更は破棄されます。保存しますか？</string>
     <string name="ask_to_save_confirm">保存する</string>
