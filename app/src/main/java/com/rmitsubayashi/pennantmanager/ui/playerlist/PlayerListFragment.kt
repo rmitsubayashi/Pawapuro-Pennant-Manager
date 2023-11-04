@@ -37,7 +37,7 @@ class PlayerListFragment : Fragment() {
         viewModel.fetchPlayerList()
         bindListAdapter()
         addObservers()
-        addListeners()
+        addViewListeners()
     }
 
     private fun addToolbarMenu() {
@@ -59,6 +59,11 @@ class PlayerListFragment : Fragment() {
                     }
                     R.id.menu_change_save_file -> {
                         val action = PlayerListFragmentDirections.actionPlayerListFragmentToSelectSaveFileFragment()
+                        findNavController().navigate(action)
+                        true
+                    }
+                    R.id.menu_open_notes -> {
+                        val action = PlayerListFragmentDirections.actionPlayerListFragmentToNoteListFragment()
                         findNavController().navigate(action)
                         true
                     }
@@ -156,7 +161,7 @@ class PlayerListFragment : Fragment() {
         }
     }
 
-    private fun addListeners() {
+    private fun addViewListeners() {
         binding.addPlayerFab.setOnClickListener {
             viewModel.addPlayerEvent()
         }

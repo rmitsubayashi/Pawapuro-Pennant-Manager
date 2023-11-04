@@ -33,4 +33,8 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideSaveFileDao(db: RoomDB) = db.saveFileDao()
+
+    @Singleton
+    @Provides
+    fun provideNoteDao(db: RoomDB) = db.noteDao()
 }

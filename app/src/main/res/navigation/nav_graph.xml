@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/playerListFragment"
         android:name="com.rmitsubayashi.pennantmanager.ui.playerlist.PlayerListFragment"
-        android:label="fragment_player_list"
-        tools:layout="@layout/fragment_player_list" >
+        android:label="@string/player_list_label"
+        tools:layout="@layout/fragment_player_list">
         <action
             android:id="@+id/action_playerListFragment_to_addEditPlayerFragment"
             app:destination="@id/addEditPlayerFragment"
@@ -17,6 +17,10 @@
         <action
             android:id="@+id/action_playerListFragment_to_selectSaveFileFragment"
             app:destination="@id/selectSaveFileFragment" />
+        <action
+            android:id="@+id/action_playerListFragment_to_noteListFragment"
+            app:destination="@id/noteListFragment"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/addEditPlayerFragment"
@@ -38,5 +42,26 @@
             android:id="@+id/action_selectSaveFileFragment_to_playerListFragment"
             app:destination="@id/playerListFragment"
             app:popUpTo="@id/nav_graph" />
+    </fragment>
+    <fragment
+        android:id="@+id/noteListFragment"
+        android:name="com.rmitsubayashi.pennantmanager.ui.notelist.NoteListFragment"
+        android:label="@string/note_list_label"
+        tools:layout="@layout/fragment_note_list">
+        <action
+            android:id="@+id/action_noteListFragment_to_playerListFragment"
+            app:destination="@id/playerListFragment"
+            app:popUpTo="@id/nav_graph" />
+        <action
+            android:id="@+id/action_noteListFragment_to_addEditNoteFragment"
+            app:destination="@id/addEditNoteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditNoteFragment"
+        android:name="com.rmitsubayashi.pennantmanager.ui.addeditnote.AddEditNoteFragment"
+        android:label="AddEditNoteFragment" >
+        <argument
+            android:name="noteId"
+            app:argType="long" />
     </fragment>
 </navigation>

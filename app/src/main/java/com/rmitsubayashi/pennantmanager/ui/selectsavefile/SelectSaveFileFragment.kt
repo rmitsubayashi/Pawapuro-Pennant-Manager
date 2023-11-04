@@ -35,7 +35,7 @@ class SelectSaveFileFragment : Fragment() {
         viewModel.fetchSaveFiles()
         bindListAdapter()
         addObservers()
-        addListeners()
+        addViewListeners()
     }
 
     private fun bindListAdapter() {
@@ -65,7 +65,7 @@ class SelectSaveFileFragment : Fragment() {
         }
     }
 
-    private fun addListeners() {
+    private fun addViewListeners() {
         binding.addSaveFileButton.setOnClickListener {
             val editTextView = requireActivity().layoutInflater.inflate(R.layout.layout_edit_text, null)
             val editText = editTextView.findViewById<EditText>(R.id.edittext)

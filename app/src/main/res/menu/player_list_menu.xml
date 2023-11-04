@@ -4,4 +4,5 @@
     <item android:id="@+id/menu_filter" android:title="@string/menu_filter" android:icon="@drawable/ic_baseline_filter_24" app:showAsAction="always"/>
     <item android:id="@+id/menu_edit_current_year" android:title="@string/menu_edit_current_year"/>
     <item android:id="@+id/menu_change_save_file" android:title="@string/menu_change_save_file"/>
+    <item android:id="@+id/menu_open_notes" android:title="@string/menu_open_notes"/>
 </menu>

@@ -41,7 +41,7 @@ class AddEditPlayerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.fetchPlayer(args.playerId)
         addObservers()
-        addListeners()
+        addViewListeners()
     }
 
     private fun addObservers() {
@@ -80,7 +80,7 @@ class AddEditPlayerFragment : Fragment() {
         }
     }
 
-    private fun addListeners() {
+    private fun addViewListeners() {
         binding.playerBirthdayButton.setOnClickListener {
             val currentBirthday = viewModel.birthYear.value ?: return@setOnClickListener
 
@@ -160,5 +160,10 @@ class AddEditPlayerFragment : Fragment() {
             GrowthType.BANSEI -> binding.banseiRadioButton
             GrowthType.CHOU_BANSEI -> binding.chouBanseiRadioButton
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

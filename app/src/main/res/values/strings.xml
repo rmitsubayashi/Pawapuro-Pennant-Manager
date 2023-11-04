@@ -32,6 +32,7 @@
     <string name="remove_player_list_item">削除</string>
     <string name="edit_player_list_item">編集</string>
     <!--player list-->
+    <string name="player_list_label">選手一覧</string>
     <string name="undo_remove">消しました</string>
     <string name="undo_remove_confirm">戻す</string>
     <string name="menu_filter">絞り込む</string>
@@ -39,6 +40,7 @@
     <string name="menu_edit_current_year_confirm">決定</string>
     <string name="menu_edit_current_year_cancel">キャンセル</string>
     <string name="menu_change_save_file">セーブデータの切り替え</string>
+    <string name="menu_open_notes">メモを開く</string>
     <!--filter-->
     <string name="filter_title">絞り込み</string>
     <string name="pitchers">投手</string>
@@ -64,4 +66,21 @@
     <string name="delete_save_file_yes">はい</string>
     <string name="delete_save_file_no">いいえ</string>
     <string name="save_file_deleted">「%1$s」が削除されました</string>
+    <!--note list-->
+    <string name="note_list_label">メモ一覧</string>
+    <string name="menu_open_player_list">選手一覧を開く</string>
+
+    <!-- note list item -->
+    <string name="remove_note_list_item">削除</string>
+
+    <!-- add edit note -->
+    <string name="add_edit_note">メモの追加・編集</string>
+    <string name="add_edit_note_title_hint">タイトル</string>
+    <string name="add_edit_note_content_hint">内容</string>
+    <string name="save_note">保存</string>
+    <string name="saved_note">保存しました</string>
+    <string name="ask_to_save">変更は破棄されます。保存しますか？</string>
+    <string name="ask_to_save_confirm">保存する</string>
+    <string name="ask_to_save_deny">破棄する</string>
+    <string name="ask_to_save_cancel">キャンセル</string>
 </resources>
