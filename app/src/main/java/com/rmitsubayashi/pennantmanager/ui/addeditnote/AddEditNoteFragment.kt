@@ -9,8 +9,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rmitsubayashi.pennantmanager.R
 import com.rmitsubayashi.pennantmanager.databinding.FragmentAddEditNoteBinding
@@ -166,6 +168,36 @@ class AddEditNoteFragment : Fragment() {
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(backPressedCallback)
+
+        val menuProvider = object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.add_edit_note_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // assumes only back arrow in menu
+                val edited = viewModel.edited.value
+                if (edited == true) {
+                    val dialogBuilder = AlertDialog.Builder(binding.root.context)
+                        .setMessage(R.string.ask_to_save)
+                        .setPositiveButton(R.string.ask_to_save_confirm) { _, _ ->
+                            viewModel.save()
+                            this@AddEditNoteFragment.findNavController().navigateUp()
+                        }
+                        .setNegativeButton(R.string.ask_to_save_deny) { _, _ ->
+                            this@AddEditNoteFragment.findNavController().navigateUp()
+                        }
+                        .setNeutralButton(R.string.ask_to_save_cancel, null)
+
+                    dialogBuilder.show()
+                } else {
+                    return false
+                }
+
+                return true
+            }
+        }
+        requireActivity().addMenuProvider(menuProvider, viewLifecycleOwner)
     }
 
     override fun onDestroyView() {
