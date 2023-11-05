@@ -52,6 +52,15 @@ class AddEditNoteFragment : Fragment() {
                     binding.contentEdittext.isEnabled = true
                     binding.contentEdittext.isFocusableInTouchMode = true
                 }
+                AddEditNoteViewModel.EDIT_CONTENT_ONLY_MODE -> {
+                    binding.saveButton.visibility = View.VISIBLE
+                    binding.editButton.visibility = View.INVISIBLE
+
+                    binding.titleEdittext.isEnabled = false
+                    binding.titleEdittext.isFocusableInTouchMode = false
+                    binding.contentEdittext.isEnabled = true
+                    binding.contentEdittext.isFocusableInTouchMode = true
+                }
                 AddEditNoteViewModel.VIEW_MODE -> {
                     binding.saveButton.visibility = View.INVISIBLE
                     binding.editButton.visibility = View.VISIBLE

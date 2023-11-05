@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rmitsubayashi.pennantmanager.data.model.Note
 import com.rmitsubayashi.pennantmanager.data.model.SaveFile
+import com.rmitsubayashi.pennantmanager.data.repository.NoteRepository
 import com.rmitsubayashi.pennantmanager.data.repository.SaveFileRepository
 import com.rmitsubayashi.pennantmanager.ui.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SelectSaveFileViewModel @Inject constructor(
-    private val saveFileRepository: SaveFileRepository
+    private val saveFileRepository: SaveFileRepository,
+    private val noteRepository: NoteRepository
 ) : ViewModel() {
 
     private val _saveFiles = MutableLiveData<List<SaveFile>>()
@@ -55,6 +58,8 @@ class SelectSaveFileViewModel @Inject constructor(
 
         viewModelScope.launch {
             val saveFileId = saveFileRepository.add(SaveFile.create(name))
+            val saveFileNote = Note.defaultForSaveFile(name, saveFileId)
+            noteRepository.add(saveFileNote)
             saveFileRepository.setCurrentSaveFile(saveFileId)
             _fileSelectedEvent.postValue(Event(Unit))
         }
@@ -74,6 +79,10 @@ class SelectSaveFileViewModel @Inject constructor(
         val selectedSaveFile = _saveFileSelectedOnScreen.value ?: return
         viewModelScope.launch {
             saveFileRepository.remove(selectedSaveFile)
+            noteRepository.removeBySaveFileId(selectedSaveFile.id)
+            // players are deleted automatically by foreign key constraint.
+            // notes are not constrained because we cannot create non-save file associated notes
+            // because their save file ids will not exist in the save file primary keys
             _fileDeletedEvent.postValue(Event(selectedSaveFile))
             fetchSaveFiles()
         }

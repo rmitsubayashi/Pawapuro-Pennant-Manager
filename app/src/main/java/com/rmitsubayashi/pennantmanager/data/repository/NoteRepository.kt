@@ -17,8 +17,12 @@ class NoteRepository @Inject constructor(private val noteDao: NoteDao) {
         noteDao.delete(note)
     }
 
-    suspend fun getAll(): List<Note> {
-        return noteDao.getAll()
+    suspend fun removeBySaveFileId(saveFileId: Long) {
+        noteDao.deleteBySaveFileId(saveFileId)
+    }
+
+    suspend fun getAll(saveFileId: Long): List<Note> {
+        return noteDao.getAll(saveFileId)
     }
 
     suspend fun get(noteId: Long): Note {

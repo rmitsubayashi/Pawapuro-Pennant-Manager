@@ -73,7 +73,12 @@ class AddEditNoteViewModel @Inject constructor(
     }
 
     fun startEdit() {
-        _interactionMode.postValue(EDIT_MODE)
+        val currentNote = _note.value ?: return
+        if (currentNote.saveFileId != Note.NO_SAVE_FILE_ID) {
+            _interactionMode.postValue(EDIT_CONTENT_ONLY_MODE)
+        } else {
+            _interactionMode.postValue(EDIT_MODE)
+        }
     }
 
     fun save() {
@@ -94,5 +99,6 @@ class AddEditNoteViewModel @Inject constructor(
     companion object {
         const val VIEW_MODE = 0
         const val EDIT_MODE = 1
+        const val EDIT_CONTENT_ONLY_MODE = 2
     }
 }

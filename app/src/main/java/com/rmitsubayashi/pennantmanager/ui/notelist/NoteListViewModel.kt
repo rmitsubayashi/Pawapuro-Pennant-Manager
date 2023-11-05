@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rmitsubayashi.pennantmanager.data.model.Note
 import com.rmitsubayashi.pennantmanager.data.repository.NoteRepository
+import com.rmitsubayashi.pennantmanager.data.repository.SaveFileRepository
 import com.rmitsubayashi.pennantmanager.ui.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NoteListViewModel @Inject constructor(
-    private val noteRepository: NoteRepository
+    private val noteRepository: NoteRepository,
+    private val saveFileRepository: SaveFileRepository
 ) : ViewModel() {
     private val _notes = MutableLiveData<List<Note>>()
     val notes: LiveData<List<Note>> = _notes
@@ -28,7 +30,8 @@ class NoteListViewModel @Inject constructor(
 
     fun fetchNoteList() {
         viewModelScope.launch {
-            val notes = noteRepository.getAll()
+            val currentSaveFile = saveFileRepository.getCurrentSaveFile() ?: return@launch
+            val notes = noteRepository.getAll(currentSaveFile.id)
             val notesByLastEdited = notes.sortedByDescending { it.lastEditedTimeStamp }
 
             _notes.postValue(notesByLastEdited)
