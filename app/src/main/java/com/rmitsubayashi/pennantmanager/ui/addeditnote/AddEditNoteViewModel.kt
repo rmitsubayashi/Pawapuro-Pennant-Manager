@@ -74,7 +74,7 @@ class AddEditNoteViewModel @Inject constructor(
 
     fun startEdit() {
         val currentNote = _note.value ?: return
-        if (currentNote.saveFileId != Note.NO_SAVE_FILE_ID) {
+        if (currentNote.isSaveFileNote()) {
             _interactionMode.postValue(EDIT_CONTENT_ONLY_MODE)
         } else {
             _interactionMode.postValue(EDIT_MODE)

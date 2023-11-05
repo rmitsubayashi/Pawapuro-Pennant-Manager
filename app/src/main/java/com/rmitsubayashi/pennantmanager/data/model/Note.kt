@@ -19,6 +19,8 @@ data class Note(
     @PrimaryKey(autoGenerate = true)
     var id: Long = DEFAULT_ID
 ) {
+    fun isSaveFileNote() = saveFileId != NO_SAVE_FILE_ID
+
     companion object {
         const val DEFAULT_ID = 0L
         const val NO_SAVE_FILE_ID = -1L

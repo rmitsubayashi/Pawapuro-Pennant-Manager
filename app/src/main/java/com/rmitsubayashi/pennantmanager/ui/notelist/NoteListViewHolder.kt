@@ -23,9 +23,12 @@ class NoteListViewHolder(private val viewModel: NoteListViewModel, private val b
         }
         binding.root.setOnCreateContextMenuListener(contextMenuListener)
         binding.root.setOnLongClickListener {
-            viewModel.longClickListItem(note)
-            // we want to continue events (opening context menu)
-            false
+            if (!note.isSaveFileNote()) {
+                viewModel.longClickListItem(note)
+                // we want to continue events (opening context menu)
+                false
+            } else true
+
         }
     }
 }
