@@ -1,15 +1,17 @@
 package com.rmitsubayashi.pennantmanager.ui.notelist
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.rmitsubayashi.pennantmanager.R
 import com.rmitsubayashi.pennantmanager.data.model.Note
@@ -55,12 +57,34 @@ class NoteListFragment : Fragment() {
                         findNavController().navigate(action)
                         true
                     }
+                    R.id.menu_export_notes -> {
+                        viewModel.export()
+                        true
+                    }
+                    R.id.menu_import_notes -> {
+                        openDirectoryPicker()
+                        true
+                    }
                     else -> {
                         false
                     }
                 }
             }
         }, viewLifecycleOwner)
+    }
+
+    private val directoryPickerResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
+        if (activityResult.resultCode == Activity.RESULT_OK) {
+            val uri = activityResult.data?.data
+            uri?.let {
+                viewModel.import(it)
+            }
+        }
+    }
+
+    private fun openDirectoryPicker() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+        directoryPickerResultLauncher.launch(intent)
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
@@ -98,6 +122,16 @@ class NoteListFragment : Fragment() {
             val noteId = it.getContentIfNotHandled()?.id ?: Note.DEFAULT_ID
             val navAction = NoteListFragmentDirections.actionNoteListFragmentToAddEditNoteFragment(noteId)
             binding.root.findNavController().navigate(navAction)
+        }
+
+        viewModel.exportEvent.observe(viewLifecycleOwner) {
+            if (it.hasBeenHandled) return@observe
+            Toast.makeText(context, getString(R.string.export_completed, it.getContentIfNotHandled()), Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.importEvent.observe(viewLifecycleOwner) {
+            if (it.hasBeenHandled) return@observe
+            Toast.makeText(context, getString(R.string.import_completed, it.getContentIfNotHandled()), Toast.LENGTH_SHORT).show()
         }
     }
 

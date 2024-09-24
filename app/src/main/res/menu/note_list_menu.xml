@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_open_player_list" android:title="@string/menu_open_player_list"/>
+    <item android:id="@+id/menu_export_notes" android:title="@string/menu_export_notes"/>
+    <item android:id="@+id/menu_import_notes" android:title="@string/menu_import_notes"/>
 </menu>

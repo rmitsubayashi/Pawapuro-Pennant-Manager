@@ -69,6 +69,10 @@
     <!--note list-->
     <string name="note_list_label">メモ一覧</string>
     <string name="menu_open_player_list">選手一覧を開く</string>
+    <string name="menu_export_notes">エクスポート</string>
+    <string name="export_completed">%d件エクスポートしました</string>
+    <string name="menu_import_notes">インポート</string>
+    <string name="import_completed">%d件インポートしました</string>
 
     <!-- note list item -->
     <string name="remove_note_list_item">削除</string>
