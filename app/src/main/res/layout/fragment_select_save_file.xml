@@ -20,7 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/add_save_file"
-        android:textColor="@color/purple_500"
+        android:textColor="?attr/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/save_file_list"
         app:layout_constraintBottom_toBottomOf="parent"

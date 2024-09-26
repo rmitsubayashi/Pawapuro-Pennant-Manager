@@ -12,7 +12,7 @@
         android:layout_width="4dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:background="@color/purple_200"
+        android:background="?attr/colorPrimaryLight"
         app:layout_constraintBottom_toBottomOf="@id/title_textview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/title_textview" />

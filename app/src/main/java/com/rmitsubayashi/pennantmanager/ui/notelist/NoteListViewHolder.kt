@@ -1,8 +1,8 @@
 package com.rmitsubayashi.pennantmanager.ui.notelist
 
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.color.MaterialColors
 import com.rmitsubayashi.pennantmanager.R
 import com.rmitsubayashi.pennantmanager.data.model.Note
 import com.rmitsubayashi.pennantmanager.databinding.ItemNoteListBinding
@@ -12,9 +12,9 @@ class NoteListViewHolder(private val viewModel: NoteListViewModel, private val b
         binding.titleTextview.text = note.title
 
         val lineColor = if (position % 2 == 0) {
-            ContextCompat.getColor(binding.root.context, R.color.purple_200)
+            MaterialColors.getColor(binding.root, R.attr.colorPrimaryLight)
         } else {
-            ContextCompat.getColor(binding.root.context, R.color.purple_700)
+            MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimaryDark)
         }
         binding.line.setBackgroundColor(lineColor)
 
