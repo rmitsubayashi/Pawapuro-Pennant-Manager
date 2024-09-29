@@ -2,7 +2,6 @@ package com.rmitsubayashi.pennantmanager.data.repository
 
 import androidx.room.TypeConverter
 import com.rmitsubayashi.pennantmanager.data.model.Position
-import java.time.LocalDate
 
 class RoomTypeConverters {
     @TypeConverter

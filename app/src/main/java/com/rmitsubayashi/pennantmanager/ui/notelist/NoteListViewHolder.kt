@@ -14,7 +14,7 @@ class NoteListViewHolder(private val viewModel: NoteListViewModel, private val b
         val lineColor = if (position % 2 == 0) {
             MaterialColors.getColor(binding.root, R.attr.colorPrimaryLight)
         } else {
-            MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimaryDark)
+            MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary)
         }
         binding.line.setBackgroundColor(lineColor)
 

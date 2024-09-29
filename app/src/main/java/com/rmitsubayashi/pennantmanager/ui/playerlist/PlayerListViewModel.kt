@@ -2,9 +2,9 @@ package com.rmitsubayashi.pennantmanager.ui.playerlist
 
 import androidx.lifecycle.*
 import com.rmitsubayashi.pennantmanager.data.model.GrowthType
-import com.rmitsubayashi.pennantmanager.data.repository.PlayerRepository
 import com.rmitsubayashi.pennantmanager.data.model.Player
 import com.rmitsubayashi.pennantmanager.data.model.SaveFile
+import com.rmitsubayashi.pennantmanager.data.repository.PlayerRepository
 import com.rmitsubayashi.pennantmanager.data.repository.SaveFileRepository
 import com.rmitsubayashi.pennantmanager.ui.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -96,6 +96,7 @@ class PlayerListViewModel @Inject constructor(
                 _redirectToCreateSaveFileEvent.postValue(Event(Unit))
                 return@launch
             }
+
             _saveFile.postValue(saveFile)
             // player list will fetch automatically when save file is updated
         }

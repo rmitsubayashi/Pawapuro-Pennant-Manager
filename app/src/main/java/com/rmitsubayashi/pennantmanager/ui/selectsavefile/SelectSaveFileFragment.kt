@@ -46,8 +46,12 @@ class SelectSaveFileFragment : Fragment() {
         viewModel.fileSelectedEvent.observe(viewLifecycleOwner) {
             if (it.hasBeenHandled) return@observe
             it.getContentIfNotHandled()
+
             val navAction = SelectSaveFileFragmentDirections.actionSelectSaveFileFragmentToPlayerListFragment()
             binding.root.findNavController().navigate(navAction)
+
+            // recreate the activity to update the app theme
+            requireActivity().recreate()
         }
 
         viewModel.fileDeletedEvent.observe(viewLifecycleOwner) {

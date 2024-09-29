@@ -1,10 +1,13 @@
 package com.rmitsubayashi.pennantmanager.ui.addeditplayer
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.rmitsubayashi.pennantmanager.data.model.GrowthType
-import com.rmitsubayashi.pennantmanager.data.repository.PlayerRepository
 import com.rmitsubayashi.pennantmanager.data.model.Player
 import com.rmitsubayashi.pennantmanager.data.model.Position
+import com.rmitsubayashi.pennantmanager.data.repository.PlayerRepository
 import com.rmitsubayashi.pennantmanager.data.repository.SaveFileRepository
 import com.rmitsubayashi.pennantmanager.ui.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel

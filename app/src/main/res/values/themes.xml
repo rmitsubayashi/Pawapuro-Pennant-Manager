@@ -1,13 +1,143 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.PawapuroPennantManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/purple_500</item>
+    <style name="Theme.PawapuroPennantManager" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/default_green</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorPrimaryLight">@color/purple_200</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="android:windowBackground">@color/soft_white</item>
+        <item name="colorPrimaryLight">@color/default_green_light</item>
+        <item name="colorPrimaryDark">@color/default_green_dark</item>
+        <item name="colorSecondary">@color/default_brown</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:windowBackground">@color/default_soft_white</item>
 
-        <item name="android:statusBarColor" tools:targetApi="l">@color/purple_700</item>
+        <item name="drawerArrowStyle">@style/WhiteArrowStyle</item>
+        <item name="android:actionOverflowButtonStyle">@style/WhiteOverflowButtonStyle</item>
     </style>
+
+    <style name="WhiteArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/white</item>
+    </style>
+
+    <style name="WhiteOverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/white</item>
+    </style>
+
+    <style name="ChunichiDragons" parent="Theme.PawapuroPennantManager">
+        <item name="colorPrimary">@color/dragons_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryLight">@color/dragons_blue_light</item>
+        <item name="colorPrimaryDark">@color/dragons_blue_dark</item>
+        <item name="colorSecondary">@color/dragons_red</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:windowBackground">@color/dragons_soft_white</item>
+    </style>
+
+    <style name="YomiuriGiants" parent="Theme.PawapuroPennantManager">
+        <item name="colorPrimary">@color/giants_black</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryLight">@color/giants_black_light</item>
+        <item name="colorPrimaryDark">@color/giants_black_dark</item>
+        <item name="colorSecondary">@color/giants_orange</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowBackground">@color/giants_soft_white</item>
+    </style>
+
+    <style name="HanshinTigers" parent="Theme.PawapuroPennantManager">
+        <item name="colorPrimary">@color/tigers_black</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryLight">@color/tigers_black_light</item>
+        <item name="colorPrimaryDark">@color/tigers_black_dark</item>
+        <item name="colorSecondary">@color/tigers_yellow</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowBackground">@color/tigers_soft_white</item>
+    </style>
+
+    <style name="ToyoCarp" parent="Theme.PawapuroPennantManager">
+        <item name="colorPrimary">@color/carp_red</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryLight">@color/carp_red_light</item>
+        <item name="colorPrimaryDark">@color/carp_red_dark</item>
+        <item name="colorSecondary">@color/carp_green</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowBackground">@color/carp_soft_white</item>
+    </style>
+
+    <style name="DenaBaystars" parent="Theme.PawapuroPennantManager">
+        <item name="colorPrimary">@color/baystars_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryLight">@color/baystars_blue_light</item>
+        <item name="colorPrimaryDark">@color/baystars_blue_dark</item>
+        <item name="colorSecondary">@color/baystars_yellow</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowBackground">@color/baystars_soft_white</item>
+    </style>
+
+    <style name="YakultSwallows" parent="Theme.PawapuroPennantManager">
+        <item name="colorPrimary">@color/swallows_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryLight">@color/swallows_blue_light</item>
+        <item name="colorPrimaryDark">@color/swallows_blue_dark</item>
+        <item name="colorSecondary">@color/swallows_red</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:windowBackground">@color/swallows_soft_white</item>
+    </style>
+
+    <style name="SoftbankHawks" parent="Theme.PawapuroPennantManager">
+        <item name="colorPrimary">@color/hawks_black</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryLight">@color/hawks_black_light</item>
+        <item name="colorPrimaryDark">@color/hawks_black_dark</item>
+        <item name="colorSecondary">@color/hawks_yellow</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowBackground">@color/hawks_soft_white</item>
+    </style>
+
+    <style name="OrixBuffalos" parent="Theme.PawapuroPennantManager">
+        <item name="colorPrimary">@color/buffalos_navy</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryLight">@color/buffalos_navy_light</item>
+        <item name="colorPrimaryDark">@color/buffalos_navy_dark</item>
+        <item name="colorSecondary">@color/buffalos_gold</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowBackground">@color/buffalos_soft_white</item>
+    </style>
+
+    <style name="NipponHamFighters" parent="Theme.PawapuroPennantManager">
+        <item name="colorPrimary">@color/fighters_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryLight">@color/fighters_blue_light</item>
+        <item name="colorPrimaryDark">@color/fighters_blue_dark</item>
+        <item name="colorSecondary">@color/fighters_black</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:windowBackground">@color/fighters_soft_white</item>
+    </style>
+
+    <style name="RakutenEagles" parent="Theme.PawapuroPennantManager">
+        <item name="colorPrimary">@color/eagles_red</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryLight">@color/eagles_red_light</item>
+        <item name="colorPrimaryDark">@color/eagles_red_dark</item>
+        <item name="colorSecondary">@color/eagles_gold</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowBackground">@color/eagles_soft_white</item>
+    </style>
+
+    <style name="SeibuLions" parent="Theme.PawapuroPennantManager">
+        <item name="colorPrimary">@color/lions_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryLight">@color/lions_blue_light</item>
+        <item name="colorPrimaryDark">@color/lions_blue_dark</item>
+        <item name="colorSecondary">@color/lions_light_blue</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:windowBackground">@color/lions_soft_white</item>
+    </style>
+
+    <style name="LotteMarines" parent="Theme.PawapuroPennantManager">
+        <item name="colorPrimary">@color/marines_black</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryLight">@color/marines_black_light</item>
+        <item name="colorPrimaryDark">@color/marines_black_dark</item>
+        <item name="colorSecondary">@color/marines_gray</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:windowBackground">@color/marines_soft_white</item>
+    </style>
+
 </resources>

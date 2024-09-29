@@ -2,7 +2,6 @@ package com.rmitsubayashi.pennantmanager.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.rmitsubayashi.pennantmanager.ui.util.TimeUtil
 

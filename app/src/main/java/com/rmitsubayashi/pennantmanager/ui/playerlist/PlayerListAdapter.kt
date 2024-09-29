@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.rmitsubayashi.pennantmanager.data.model.Player
 import com.rmitsubayashi.pennantmanager.databinding.ItemPlayerListBinding

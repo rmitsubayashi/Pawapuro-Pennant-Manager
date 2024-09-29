@@ -1,11 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
     <color name="gray_500">#9E9E9E</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="soft_white">#F2F2F2</color>
+
+    <color name="default_green">#2e8720</color>
+    <color name="default_green_dark">#1c5214</color>
+    <color name="default_green_light">#90e283</color>
+    <color name="default_brown">#7e4d32</color>
+    <color name="default_soft_white">#F2F2F2</color>
+
+    <color name="dragons_blue">#0d317d</color>
+    <color name="dragons_blue_dark">#0a245c</color>
+    <color name="dragons_blue_light">#16b3eb</color>
+    <color name="dragons_red">#c7232e</color>
+    <color name="dragons_soft_white">#d1defa</color>
+
+    <color name="giants_black">#111111</color>
+    <color name="giants_black_dark">#000000</color>
+    <color name="giants_black_light">#777777</color>
+    <color name="giants_orange">#eb9713</color>
+    <color name="giants_soft_white">#fbebd0</color>
+
+    <color name="tigers_black">#111111</color>
+    <color name="tigers_black_dark">#000000</color>
+    <color name="tigers_black_light">#777777</color>
+    <color name="tigers_yellow">#e5cd19</color>
+    <color name="tigers_soft_white">#faf5d1</color>
+
+    <color name="carp_red">#d92626</color>
+    <color name="carp_red_light">#e87d7d</color>
+    <color name="carp_red_dark">#981b1b</color>
+    <color name="carp_green">#51af58</color>
+    <color name="carp_soft_white">#fbe9e9</color>
+
+    <color name="baystars_blue">#11449d</color>
+    <color name="baystars_blue_light">#4783eb</color>
+    <color name="baystars_blue_dark">#0c306e</color>
+    <color name="baystars_yellow">#d9ca26</color>
+    <color name="baystars_soft_white">#e8f0fd</color>
+
+    <color name="swallows_blue">#003d98</color>
+    <color name="swallows_blue_light">#4789eb</color>
+    <color name="swallows_blue_dark">#002966</color>
+    <color name="swallows_red">#c3223a</color>
+    <color name="swallows_soft_white">#e6f0ff</color>
+
+    <color name="hawks_black">#111111</color>
+    <color name="hawks_black_dark">#000000</color>
+    <color name="hawks_black_light">#777777</color>
+    <color name="hawks_yellow">#e3b719</color>
+    <color name="hawks_soft_white">#fcf8e8</color>
+
+    <color name="buffalos_navy">#00011f</color>
+    <color name="buffalos_navy_dark">#000000</color>
+    <color name="buffalos_navy_light">#1f23ad</color>
+    <color name="buffalos_gold">#b3ab2d</color>
+    <color name="buffalos_soft_white">#e6e6ff</color>
+
+    <color name="fighters_blue">#275b91</color>
+    <color name="fighters_blue_light">#5e97d4</color>
+    <color name="fighters_blue_dark">#10263c</color>
+    <color name="fighters_black">#000000</color>
+    <color name="fighters_soft_white">#ebf2fa</color>
+
+    <color name="eagles_red">#7c1718</color>
+    <color name="eagles_red_light">#cc6668</color>
+    <color name="eagles_red_dark">#4d1a1a</color>
+    <color name="eagles_gold">#e9a93e</color>
+    <color name="eagles_soft_white">#fbe9ea</color>
+
+    <color name="lions_blue">#092048</color>
+    <color name="lions_blue_dark">#000000</color>
+    <color name="lions_blue_light">#5286e0</color>
+    <color name="lions_light_blue">#268bd8</color>
+    <color name="lions_soft_white">#e8f0fc</color>
+
+    <color name="marines_black">#111111</color>
+    <color name="marines_black_dark">#000000</color>
+    <color name="marines_black_light">#777777</color>
+    <color name="marines_gray">#555555</color>
+    <color name="marines_soft_white">#f2f2f2</color>
+
 </resources>

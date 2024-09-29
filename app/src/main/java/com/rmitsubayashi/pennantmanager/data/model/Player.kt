@@ -2,8 +2,6 @@ package com.rmitsubayashi.pennantmanager.data.model
 
 import androidx.room.*
 import androidx.room.ForeignKey.Companion.CASCADE
-import java.time.LocalDate
-import java.util.*
 
 @Entity(foreignKeys = [ForeignKey(onDelete = CASCADE, entity = SaveFile::class, parentColumns = arrayOf("id"), childColumns = arrayOf("saveFileId"))])
 data class Player(

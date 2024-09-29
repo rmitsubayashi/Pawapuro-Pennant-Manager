@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/playerListFragment"
         android:name="com.rmitsubayashi.pennantmanager.ui.playerlist.PlayerListFragment"
-        android:label="@string/player_list_label"
+        android:label="@string/empty_label"
         tools:layout="@layout/fragment_player_list">
         <action
             android:id="@+id/action_playerListFragment_to_addEditPlayerFragment"
